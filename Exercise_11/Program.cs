@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercise_11
 {
@@ -12,23 +8,60 @@ namespace Exercise_11
         static void Main(string[] args)
         {
             string text;
+            Console.WriteLine("Задание 11:");
+            Console.WriteLine("Чтобы зашифровать текст из 121 буквы, его можно записать в квадратную матрицу порядка 11 по строкам, а затем прочитать по спирали, начиная с центра.\n");
+
             do
             {
                 Console.WriteLine("Введите строку из 121 символа:");
                 text = Console.ReadLine();
                 if (text.Length == count * count)
+                {
                     break;
+                }
+                else
+                {
+                    Console.WriteLine("Строка не соответствует критерию. Повторите ввод.");
+                }
             } while (true);
 
-            //text = "At principle perfectly by sweetness do. Up hung mr we give rest half. Made neat an on be gave show snug tore. Celebrated.";
             char[,] matrix = CreateMatrix(text);
-            string encryptingText = Encrypting(matrix);
-            Console.WriteLine("Закодированный текст:");
-            Console.WriteLine(encryptingText);
-            string unecryptingText = Unecrypting(encryptingText);
-            Console.WriteLine("Раскодированный текст:");
-            Console.WriteLine(unecryptingText);
-            Console.ReadLine();
+
+            do
+            {
+                Console.WriteLine("1. Закодировать строку.\n2. Раскодировать строку.\n");
+                Console.Write("Ввод: ");
+                int num;
+                if (!int.TryParse(Console.ReadLine(), out num) || num < 1 || num > 2)
+                {
+                    Console.WriteLine("Ошибка ввода. Повторите ввод.");
+                }
+                else
+                {
+                    switch (num)
+                    {
+                        case 1:
+                            text = Encrypting(matrix);
+                            Console.WriteLine("Закодированный текст:");
+                            Console.WriteLine(text);
+                            break;
+                        case 2:
+                            text = Unecrypting(text);
+                            Console.WriteLine("Раскодированный текст:");
+                            Console.WriteLine(text);
+                            break;
+                    }
+                }
+            } while (true);
+            //text = "At principle perfectly by sweetness do. Up hung mr we give rest half. Made neat an on be gave show snug tore. Celebrated.";
+            //char[,] matrix = CreateMatrix(text);
+            //string encryptingText = Encrypting(matrix);
+            //Console.WriteLine("Закодированный текст:");
+            //Console.WriteLine(encryptingText);
+            //string unecryptingText = Unecrypting(encryptingText);
+            //Console.WriteLine("Раскодированный текст:");
+            //Console.WriteLine(unecryptingText);
+            //Console.ReadLine();
         }
         static char[,] CreateMatrix(string txt)
         {
